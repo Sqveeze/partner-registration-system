@@ -1,0 +1,1 @@
+partner-register-system
