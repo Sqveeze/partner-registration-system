@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: devpasswd
+    ports:
+      - 9090:5432
+  adminer:
+    image: adminer
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - 9191:8080
+  backend:
+    container_name: backend
+    depends_on:
+      - adminer
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: devpasswd
+      DATABASE_NAME: postgres
+    volumes:
+      - './backend:/usr/partner-app/backend'
+      - '/usr/partner-app/backend/node_modules'
+    ports:
+      - 2999:3000
+  frontend:
+    container_name: frontend
+    depends_on:
+      - backend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      REACT_APP_BACKEND_URL: http://localhost:2999
+    volumes:
+      - './frontend:/usr/todo-app/frontend'
+      - '/usr/todo-app/frontend/node_modules'
+    ports:
+      - 3000:3000
