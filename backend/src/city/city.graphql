@@ -1,0 +1,24 @@
+type City {
+  id: ID
+  name: String
+}
+
+input CreateCityInput {
+  name: String
+}
+
+input UpdateCityInput {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  cities: [City]!
+  city(id: ID!): City
+}
+
+type Mutation {
+  createCity(createCityInput: CreateCityInput!): City!
+  updateCity(updateCityInput: UpdateCityInput!): City!
+  removeCity(id: ID!): City
+}

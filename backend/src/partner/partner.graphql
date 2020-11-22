@@ -1,0 +1,48 @@
+type Partner {
+  id: ID
+  name: String
+  companyType: CompanyType
+  taxNumber: String
+  companyRegistrationNumber: String
+  city: City
+  address: String
+  phoneNumber: String
+  bankAccountNumber: String
+  comment: String
+}
+
+input CreatePartnerInput {
+  name: String
+  companyType: ID
+  taxNumber: String
+  companyRegistrationNumber: String
+  city: ID
+  address: String
+  phoneNumber: String
+  bankAccountNumber: String
+  comment: String
+}
+
+input UpdatePartnerInput {
+  id: ID
+  name: String
+  companyType: ID
+  taxNumber: String
+  companyRegistrationNumber: String
+  city: ID
+  address: String
+  phoneNumber: String
+  bankAccountNumber: String
+  comment: String
+}
+
+type Query {
+  partners: [Partner]!
+  partner(id: ID!): Partner
+}
+
+type Mutation {
+  createPartner(createPartnerInput: CreatePartnerInput!): Partner!
+  updatePartner(updatePartnerInput: UpdatePartnerInput!): Partner!
+  removePartner(id: ID!): Partner
+}

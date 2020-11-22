@@ -1,0 +1,24 @@
+type CompanyType {
+  id: ID
+  name: String
+}
+
+input CreateCompanyTypeInput {
+  name: String
+}
+
+input UpdateCompanyTypeInput {
+  id: ID!
+  name: String
+}
+
+type Query {
+  companyTypes: [CompanyType]!
+  companyType(id: ID!): CompanyType
+}
+
+type Mutation {
+  createCompanyType(createCompanyTypeInput: CreateCompanyTypeInput!): CompanyType!
+  updateCompanyType(updateCompanyTypeInput: UpdateCompanyTypeInput!): CompanyType!
+  removeCompanyType(id: ID): CompanyType
+}
